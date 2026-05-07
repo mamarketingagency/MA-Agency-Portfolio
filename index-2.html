@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MA Marketing Agency — Portfolio</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--s1:#0f0f0f;--s2:#141414;
+  --neon:#00ff88;--neon2:#00cc6a;
+  --neonGlow:0 0 12px #00ff8866,0 0 32px #00ff8822;
+  --text:#f0f0f0;--muted:#666;--border:#1f1f1f;--radius:4px;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--neon2);border-radius:2px}
+.root{min-height:100vh;background:var(--bg);}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:99;background:rgba(8,8,8,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:68px;}
+.hdr::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:1px;background:var(--neon);opacity:0.5;box-shadow:var(--neonGlow);}
+.logo{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;letter-spacing:0.04em;color:var(--text);cursor:pointer;user-select:none;}
+.logo-dot{color:var(--neon);text-shadow:var(--neonGlow);}
+.hdr-tag{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);}
+.admin-badge{background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:var(--neon);font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;padding:5px 12px;border-radius:20px;font-weight:600;}
+.logout-btn{background:transparent;border:1px solid #333;color:var(--muted);padding:6px 14px;font-family:'DM Sans',sans-serif;font-size:0.75rem;cursor:pointer;border-radius:var(--radius);transition:all 0.2s;margin-left:8px;}
+.logout-btn:hover{border-color:#ff3b3b;color:#ff3b3b;}
+.add-btn{background:transparent;border:1px solid var(--neon);color:var(--neon);padding:9px 22px;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:var(--radius);transition:all 0.2s;}
+.add-btn:hover{background:var(--neon);color:#080808;box-shadow:var(--neonGlow);}
+.hdr-right{display:flex;align-items:center;gap:10px;}
+
+/* HERO */
+.hero{padding:80px 48px 64px;background:linear-gradient(160deg,#080808 60%,#0a1a10 100%);border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-120px;right:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,#00ff8812 0%,transparent 70%);pointer-events:none;}
+.hero-eye{font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;color:var(--neon);font-weight:600;margin-bottom:16px;text-shadow:var(--neonGlow);}
+.hero-h1{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6vw,5.5rem);font-weight:800;line-height:1.0;letter-spacing:-0.03em;max-width:700px;}
+.hl{color:var(--neon);text-shadow:var(--neonGlow);}
+.hero-sub{margin-top:20px;font-size:1rem;color:#777;font-weight:300;max-width:480px;line-height:1.75;}
+.hero-stats{display:flex;gap:48px;margin-top:44px;flex-wrap:wrap;}
+.stat-n{font-family:'Syne',sans-serif;font-size:2.4rem;font-weight:800;color:var(--neon);text-shadow:var(--neonGlow);}
+.stat-l{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+
+/* CONTACT */
+.contact-strip{background:var(--s1);border-bottom:1px solid var(--border);padding:16px 48px;display:flex;gap:32px;align-items:center;flex-wrap:wrap;}
+.contact-item{display:flex;align-items:center;gap:8px;font-size:0.82rem;color:var(--muted);}
+.contact-item a{color:var(--neon);text-decoration:none;font-weight:500;}
+.contact-item a:hover{text-decoration:underline;}
+
+/* NAV */
+.nav-wrap{background:var(--s1);border-bottom:1px solid var(--border);padding:0 48px;display:flex;overflow-x:auto;scrollbar-width:none;}
+.nav-wrap::-webkit-scrollbar{display:none;}
+.nav-tab{background:transparent;border:none;border-bottom:2px solid transparent;color:var(--muted);padding:16px 18px 14px;font-family:'DM Sans',sans-serif;font-size:0.82rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all 0.2s;}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.on{color:var(--neon);border-bottom-color:var(--neon);}
+
+/* SECTION */
+.section{padding:48px 48px 80px;}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;}
+.sec-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;}
+.sec-count{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+
+/* GRID — wider columns */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;}
+
+/* CARD */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;transition:border-color 0.3s,transform 0.3s,box-shadow 0.3s;}
+.card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:0 0 0 1px #00ff8822,0 20px 60px rgba(0,0,0,0.5);}
+
+/* BIGGER IMAGE AREA */
+.card-img{
+  width:100%;
+  aspect-ratio:4/3;       /* natural proportions — 4:3 ratio */
+  overflow:hidden;
+  position:relative;
+  background:var(--s2);
+  flex-shrink:0;
+  cursor:zoom-in;
+}
+.card-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;       /* fills the space nicely */
+  object-position:center top; /* shows top of image (logos, headings) */
+  display:block;
+  transition:transform 0.5s;
+}
+.card:hover .card-img img{transform:scale(1.04);}
+
+/* zoom hint */
+.zoom-hint{
+  position:absolute;bottom:10px;right:10px;
+  background:rgba(0,0,0,0.7);color:#fff;
+  font-size:0.65rem;letter-spacing:0.06em;padding:3px 8px;
+  border-radius:10px;opacity:0;transition:opacity 0.2s;
+  backdrop-filter:blur(4px);
+  pointer-events:none;
+}
+.card-img:hover .zoom-hint{opacity:1;}
+
+.card-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#0f0f0f,#141414);}
+.card-ph-icon{font-size:3rem;opacity:0.3;}
+.card-ph-txt{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+.web-ph{width:100%;height:100%;background:#0a1200;display:flex;flex-direction:column;}
+.wb-bar{background:#111;height:30px;display:flex;align-items:center;padding:0 10px;gap:5px;flex-shrink:0;}
+.wb-dot{width:9px;height:9px;border-radius:50%;}
+.wb-addr{flex:1;background:#0a0a0a;border-radius:3px;height:16px;margin:0 8px;display:flex;align-items:center;padding:0 8px;}
+.wb-url{font-size:0.6rem;color:#444;font-family:monospace;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.wb-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.wb-icon{font-size:2.5rem;opacity:0.5;}
+.wb-label{font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;color:#2a4a30;}
+
+.cat-pill{position:absolute;top:10px;left:10px;background:rgba(0,255,136,0.12);border:1px solid rgba(0,255,136,0.3);color:var(--neon);font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border-radius:20px;font-weight:600;backdrop-filter:blur(4px);}
+.card-body{padding:18px 20px 14px;flex:1;display:flex;flex-direction:column;}
+.card-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:7px;}
+.card-desc{font-size:0.81rem;color:var(--muted);line-height:1.65;font-weight:300;flex:1;}
+.card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:16px;padding-top:14px;border-top:1px solid var(--border);}
+.card-acts{display:flex;gap:6px;}
+.btn-sm{background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 12px;font-size:0.72rem;font-family:'DM Sans',sans-serif;font-weight:500;cursor:pointer;border-radius:3px;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:4px;}
+.btn-sm:hover{border-color:var(--neon);color:var(--neon);}
+.btn-sm.del:hover{border-color:#ff3b3b;color:#ff3b3b;}
+.btn-visit{background:var(--neon);color:#080808;border:none;padding:7px 16px;font-size:0.78rem;font-family:'DM Sans',sans-serif;font-weight:700;cursor:pointer;border-radius:3px;transition:all 0.2s;text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
+.btn-visit:hover{background:#fff;box-shadow:var(--neonGlow);}
+
+/* LIGHTBOX — full image viewer */
+.lightbox{
+  position:fixed;inset:0;background:rgba(0,0,0,0.95);
+  z-index:999;display:flex;align-items:center;justify-content:center;
+  padding:24px;animation:fadeIn 0.2s ease;cursor:zoom-out;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.lightbox img{
+  max-width:100%;max-height:90vh;
+  object-fit:contain;
+  border-radius:4px;
+  box-shadow:0 0 80px rgba(0,255,136,0.15);
+  animation:popIn 0.25s ease;
+  cursor:default;
+}
+@keyframes popIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
+.lb-close{
+  position:fixed;top:20px;right:24px;
+  background:rgba(255,255,255,0.1);border:none;color:#fff;
+  width:40px;height:40px;border-radius:50%;font-size:1.2rem;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background 0.2s;backdrop-filter:blur(4px);
+}
+.lb-close:hover{background:rgba(255,255,255,0.2);}
+.lb-title{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);color:#fff;padding:8px 20px;border-radius:20px;font-size:0.85rem;backdrop-filter:blur(8px);white-space:nowrap;}
+
+/* TESTIMONIALS */
+.testi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+.testi-card{background:var(--s1);border:1px solid var(--border);border-radius:6px;padding:24px;transition:border-color 0.3s,transform 0.3s;}
+.testi-card:hover{border-color:#00ff8833;transform:translateY(-2px);}
+.testi-quote{font-size:2rem;color:var(--neon);line-height:1;margin-bottom:12px;text-shadow:var(--neonGlow);}
+.testi-text{font-size:0.88rem;color:#bbb;line-height:1.7;font-weight:300;font-style:italic;margin-bottom:18px;}
+.testi-author{display:flex;align-items:center;gap:12px;}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:var(--neon);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:#080808;flex-shrink:0;}
+.testi-name{font-size:0.88rem;font-weight:600;color:var(--text);}
+.testi-role{font-size:0.72rem;color:var(--muted);margin-top:2px;}
+.testi-stars{color:var(--neon);font-size:0.8rem;margin-top:3px;}
+
+/* EMPTY */
+.empty{text-align:center;padding:100px 40px;}
+.empty-icon{font-size:3.5rem;opacity:0.15;margin-bottom:16px;}
+.empty-h{font-family:'Syne',sans-serif;font-size:1.6rem;color:#222;margin-bottom:8px;}
+.empty-p{font-size:0.85rem;color:#333;}
+
+/* FOOTER */
+.footer{background:var(--s1);border-top:1px solid var(--border);padding:32px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+.footer-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--text);}
+.footer-copy{font-size:0.75rem;color:var(--muted);}
+
+/* MODALS */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);backdrop-filter:blur(8px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{background:var(--s1);border:1px solid #222;border-top:2px solid var(--neon);box-shadow:0 0 0 1px #00ff8811,0 32px 80px rgba(0,255,136,0.08);border-radius:6px;width:100%;max-width:500px;max-height:92vh;overflow-y:auto;animation:slideUp 0.22s ease;}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.m-hdr{padding:24px 28px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.m-title{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:var(--text);}
+.m-close{background:none;border:none;color:var(--muted);font-size:1.2rem;cursor:pointer;line-height:1;padding:4px;}
+.m-close:hover{color:var(--text);}
+.m-body{padding:22px 28px 6px;}
+.m-foot{padding:16px 28px 24px;display:flex;gap:10px;justify-content:flex-end;border-top:1px solid var(--border);}
+.fld{margin-bottom:16px;}
+.fld label{display:block;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px;}
+.fld input,.fld textarea,.fld select{width:100%;background:#0a0a0a;border:1.5px solid #222;color:var(--text);padding:10px 13px;font-family:'DM Sans',sans-serif;font-size:0.88rem;border-radius:var(--radius);outline:none;transition:border-color 0.2s;appearance:auto;}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:var(--neon);}
+.fld textarea{min-height:75px;resize:vertical;}
+.fld select option{background:#111;}
+.upload-zone{border:2px dashed #222;border-radius:4px;padding:22px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;background:#0a0a0a;}
+.upload-zone:hover{border-color:var(--neon);background:#0a1200;}
+.upload-zone input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+.upload-icon{font-size:1.8rem;margin-bottom:6px;}
+.upload-lbl{font-size:0.82rem;color:var(--muted);}
+.upload-lbl strong{color:var(--neon);}
+.img-prev{width:100%;max-height:160px;object-fit:contain;border-radius:3px;margin-top:10px;border:1px solid #222;background:#000;}
+.divider{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--muted);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+.btn-cancel{background:transparent;border:1px solid #222;color:var(--muted);padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:0.83rem;font-weight:500;cursor:pointer;border-radius:var(--radius);transition:all 0.2s;}
+.btn-cancel:hover{border-color:#444;color:var(--text);}
+.btn-save{background:var(--neon);border:none;color:#080808;padding:10px 26px;font-family:'DM Sans',sans-serif;font-size:0.83rem;font-weight:700;cursor:pointer;border-radius:var(--radius);transition:all 0.2s;}
+.btn-save:hover{background:#fff;box-shadow:var(--neonGlow);}
+.login-modal{background:var(--s1);border:1px solid #1a1a1a;border-top:2px solid var(--neon);border-radius:6px;width:100%;max-width:360px;padding:36px;text-align:center;animation:slideUp 0.22s ease;}
+.login-icon{font-size:2.5rem;margin-bottom:12px;}
+.login-title{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:6px;}
+.login-sub{font-size:0.8rem;color:var(--muted);margin-bottom:24px;}
+.login-input{width:100%;background:#0a0a0a;border:1.5px solid #222;color:var(--text);padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:1rem;border-radius:var(--radius);outline:none;text-align:center;letter-spacing:0.2em;transition:border-color 0.2s;margin-bottom:12px;}
+.login-input:focus{border-color:var(--neon);}
+.login-btn{width:100%;background:var(--neon);border:none;color:#080808;padding:12px;font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:700;cursor:pointer;border-radius:var(--radius);transition:all 0.2s;text-transform:uppercase;}
+.login-btn:hover{background:#fff;box-shadow:var(--neonGlow);}
+.login-err{font-size:0.78rem;color:#ff3b3b;margin-top:8px;}
+.login-cancel{background:none;border:none;color:var(--muted);font-size:0.78rem;cursor:pointer;margin-top:14px;text-decoration:underline;}
+.wa-btn{position:fixed;bottom:28px;right:28px;background:#25d366;color:#fff;border:none;width:56px;height:56px;border-radius:50%;font-size:1.5rem;cursor:pointer;box-shadow:0 4px 24px rgba(37,211,102,0.4);display:flex;align-items:center;justify-content:center;z-index:90;transition:transform 0.2s;text-decoration:none;}
+.wa-btn:hover{transform:scale(1.1);}
+
+@media(max-width:640px){
+  .hdr,.hero,.contact-strip,.nav-wrap,.section,.footer{padding-left:20px;padding-right:20px;}
+  .grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .hero{padding-top:48px;padding-bottom:40px;}
+  .hdr-tag{display:none;}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const ADMIN_PASS = "ma2025";
+const WA_NUMBER  = "923274433880";
+const WA_MESSAGE = "Hi MA Marketing Agency! I'd like to discuss a project.";
+
+const CATS = ["All","Advertising","Marketing","Banners","Websites","Content Creation","Branding","Social Media","Other"];
+const CAT_ICONS = { Advertising:"📢", Marketing:"📈", Banners:"🖼️", Websites:"🌐", "Content Creation":"✍️", Branding:"💎", "Social Media":"📱", Other:"📁" };
+const VIEWS = ["Portfolio","Testimonials"];
+
+function App() {
+  const [projects, setProjects] = useState([]);
+  const [testis,   setTestis]   = useState([]);
+  const [cat,      setCat]      = useState("All");
+  const [view,     setView]     = useState("Portfolio");
+  const [isAdmin,  setIsAdmin]  = useState(false);
+  const [logoTaps, setLogoTaps] = useState(0);
+  const [showLogin,setShowLogin]= useState(false);
+  const [passInput,setPassInput]= useState("");
+  const [passErr,  setPassErr]  = useState(false);
+  const [modal,    setModal]    = useState(null);
+  const [editId,   setEditId]   = useState(null);
+  const [lightbox, setLightbox] = useState(null); // {src, title}
+  const [pForm, setPForm] = useState({title:"",desc:"",cat:"Advertising",imgData:"",imgUrl:"",link:""});
+  const [tForm, setTForm] = useState({name:"",role:"",company:"",text:"",rating:5});
+
+  const filtered = cat==="All" ? projects : projects.filter(p=>p.cat===cat);
+
+  const handleLogoClick = () => {
+    const n = logoTaps + 1; setLogoTaps(n);
+    if(n >= 5){ setShowLogin(true); setLogoTaps(0); }
+    setTimeout(()=>setLogoTaps(0), 3000);
+  };
+
+  const handleLogin = () => {
+    if(passInput===ADMIN_PASS){ setIsAdmin(true);setShowLogin(false);setPassInput("");setPassErr(false); }
+    else setPassErr(true);
+  };
+
+  const openAddProject  = ()  => { setEditId(null); setPForm({title:"",desc:"",cat:"Advertising",imgData:"",imgUrl:"",link:""}); setModal("project"); };
+  const openEditProject = (p) => { setEditId(p.id); setPForm({title:p.title,desc:p.desc,cat:p.cat,imgData:p.imgData||"",imgUrl:p.imgUrl||"",link:p.link||""}); setModal("project"); };
+  const openAddTesti    = ()  => { setEditId(null); setTForm({name:"",role:"",company:"",text:"",rating:5}); setModal("testi"); };
+  const openEditTesti   = (t) => { setEditId(t.id); setTForm({name:t.name,role:t.role,company:t.company,text:t.text,rating:t.rating}); setModal("testi"); };
+
+  const handleFile = (e) => {
+    const f=e.target.files[0]; if(!f)return;
+    const r=new FileReader();
+    r.onload=ev=>setPForm(p=>({...p,imgData:ev.target.result,imgUrl:""}));
+    r.readAsDataURL(f);
+  };
+
+  const saveProject = () => {
+    if(!pForm.title.trim())return;
+    if(editId) setProjects(ps=>ps.map(p=>p.id===editId?{...p,...pForm}:p));
+    else       setProjects(ps=>[...ps,{id:Date.now(),...pForm}]);
+    setModal(null);
+  };
+
+  const saveTesti = () => {
+    if(!tForm.name.trim()||!tForm.text.trim())return;
+    if(editId) setTestis(ts=>ts.map(t=>t.id===editId?{...t,...tForm}:t));
+    else       setTestis(ts=>[...ts,{id:Date.now(),...tForm}]);
+    setModal(null);
+  };
+
+  const delProject = (id)=>{ if(window.confirm("Delete project?")) setProjects(ps=>ps.filter(p=>p.id!==id)); };
+  const delTesti   = (id)=>{ if(window.confirm("Delete review?"))  setTestis(ts=>ts.filter(t=>t.id!==id)); };
+
+  const imgSrc  = pForm.imgData || pForm.imgUrl;
+  const waLink  = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MESSAGE)}`;
+
+  return (
+    <div className="root">
+
+      {/* ── HEADER ── */}
+      <div className="hdr">
+        <div className="logo" onClick={handleLogoClick}>MA<span className="logo-dot">.</span>Agency</div>
+        <div className="hdr-tag">Creative Portfolio</div>
+        <div className="hdr-right">
+          {isAdmin && <>
+            <div className="admin-badge">🔐 Admin</div>
+            <button className="add-btn" onClick={view==="Portfolio"?openAddProject:openAddTesti}>
+              + {view==="Portfolio"?"Add Project":"Add Review"}
+            </button>
+            <button className="logout-btn" onClick={()=>setIsAdmin(false)}>Logout</button>
+          </>}
+        </div>
+      </div>
+
+      {/* ── HERO ── */}
+      <div className="hero">
+        <div className="hero-eye">MA Marketing Agency — Our Work</div>
+        <div className="hero-h1">Where creativity<br/>meets <span className="hl">results.</span></div>
+        <div className="hero-sub">Full-service creative agency — advertising, marketing, websites, banners, branding & content that moves people.</div>
+        <div className="hero-stats">
+          <div><div className="stat-n">{projects.length}</div><div className="stat-l">Projects</div></div>
+          <div><div className="stat-n">{testis.length}</div><div className="stat-l">Reviews</div></div>
+          <div><div className="stat-n">{[...new Set(projects.map(p=>p.cat))].length||0}</div><div className="stat-l">Categories</div></div>
+        </div>
+      </div>
+
+      {/* ── CONTACT ── */}
+      <div className="contact-strip">
+        <div className="contact-item">📱 <a href={waLink} target="_blank">Chat on WhatsApp</a></div>
+        <div className="contact-item">✉️ <a href="mailto:ma.official.agency@gmail.com">ma.official.agency@gmail.com</a></div>
+        <div className="contact-item">📍 Pakistan</div>
+      </div>
+
+      {/* ── NAV ── */}
+      <div className="nav-wrap">
+        {VIEWS.map(v=>(
+          <button key={v} className={`nav-tab${view===v?" on":""}`} onClick={()=>setView(v)}>{v}</button>
+        ))}
+        {view==="Portfolio" && CATS.map(c=>(
+          <button key={c} className={`nav-tab${cat===c?" on":""}`} onClick={()=>setCat(c)}>
+            {c!=="All"&&CAT_ICONS[c]+" "}{c}
+          </button>
+        ))}
+      </div>
+
+      {/* ── PORTFOLIO ── */}
+      {view==="Portfolio" && (
+        <div className="section">
+          <div className="sec-hdr">
+            <div className="sec-title">Our Portfolio</div>
+            <div className="sec-count">{filtered.length} project{filtered.length!==1?"s":""}{cat!=="All"&&` · ${cat}`}</div>
+          </div>
+          {filtered.length===0 ? (
+            <div className="empty">
+              <div className="empty-icon">🎨</div>
+              <div className="empty-h">{isAdmin?"Add your first project!":"Coming Soon"}</div>
+              <div className="empty-p">{isAdmin?"Click '+ Add Project' above.":"Portfolio is being updated. Check back soon!"}</div>
+            </div>
+          ) : (
+            <div className="grid">
+              {filtered.map(p=>{
+                const src=p.imgData||p.imgUrl;
+                const isWeb=p.cat==="Websites";
+                return (
+                  <div className="card" key={p.id}>
+                    {/* IMAGE — click to open lightbox */}
+                    <div className="card-img" onClick={()=>src&&setLightbox({src,title:p.title})}>
+                      <div className="cat-pill">{CAT_ICONS[p.cat]} {p.cat}</div>
+                      {isWeb&&!src ? (
+                        <div className="web-ph">
+                          <div className="wb-bar">
+                            <div className="wb-dot" style={{background:"#ff5f57"}}/>
+                            <div className="wb-dot" style={{background:"#ffbd2e"}}/>
+                            <div className="wb-dot" style={{background:"#28c840"}}/>
+                            <div className="wb-addr"><span className="wb-url">🔒 {p.link||"yourwebsite.com"}</span></div>
+                          </div>
+                          <div className="wb-body"><div className="wb-icon">🌐</div><div className="wb-label">Website Project</div></div>
+                        </div>
+                      ) : src ? (
+                        <>
+                          <img src={src} alt={p.title}/>
+                          <div className="zoom-hint">🔍 Tap to expand</div>
+                        </>
+                      ) : (
+                        <div className="card-ph">
+                          <div className="card-ph-icon">{CAT_ICONS[p.cat]||"🖼️"}</div>
+                          <div className="card-ph-txt">No image added</div>
+                        </div>
+                      )}
+                    </div>
+                    <div className="card-body">
+                      <div className="card-title">{p.title}</div>
+                      {p.desc&&<div className="card-desc">{p.desc}</div>}
+                      <div className="card-foot">
+                        {isAdmin ? (
+                          <div className="card-acts">
+                            <button className="btn-sm" onClick={()=>openEditProject(p)}>✏️ Edit</button>
+                            <button className="btn-sm del" onClick={()=>delProject(p.id)}>✕</button>
+                          </div>
+                        ) : <div/>}
+                        {p.link&&(
+                          <a href={p.link} target="_blank" rel="noreferrer" className="btn-visit">
+                            {isWeb?"🌐 Visit Site":"↗ View"}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── TESTIMONIALS ── */}
+      {view==="Testimonials" && (
+        <div className="section">
+          <div className="sec-hdr">
+            <div className="sec-title">Client Reviews</div>
+            <div className="sec-count">{testis.length} review{testis.length!==1?"s":""}</div>
+          </div>
+          {testis.length===0 ? (
+            <div className="empty">
+              <div className="empty-icon">⭐</div>
+              <div className="empty-h">{isAdmin?"No reviews yet":"No Reviews Yet"}</div>
+              <div className="empty-p">{isAdmin?"Add client testimonials above.":"Be the first to work with us!"}</div>
+            </div>
+          ) : (
+            <div className="testi-grid">
+              {testis.map(t=>(
+                <div className="testi-card" key={t.id}>
+                  <div className="testi-quote">"</div>
+                  <div className="testi-text">{t.text}</div>
+                  <div className="testi-author">
+                    <div className="testi-avatar">{t.name.charAt(0).toUpperCase()}</div>
+                    <div>
+                      <div className="testi-name">{t.name}</div>
+                      <div className="testi-role">{t.role}{t.company&&` · ${t.company}`}</div>
+                      <div className="testi-stars">{"★".repeat(t.rating)}{"☆".repeat(5-t.rating)}</div>
+                    </div>
+                  </div>
+                  {isAdmin&&(
+                    <div style={{display:"flex",gap:8,marginTop:16,paddingTop:14,borderTop:"1px solid #1a1a1a"}}>
+                      <button className="btn-sm" onClick={()=>openEditTesti(t)}>✏️ Edit</button>
+                      <button className="btn-sm del" onClick={()=>delTesti(t.id)}>✕ Delete</button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ── FOOTER ── */}
+      <div className="footer">
+        <div className="footer-logo">MA<span style={{color:"var(--neon)"}}>.</span>Agency</div>
+        <div className="footer-copy">© 2025 MA Marketing Agency. All rights reserved.</div>
+      </div>
+
+      {/* ── WHATSAPP FLOAT ── */}
+      <a href={waLink} target="_blank" className="wa-btn" title="Chat on WhatsApp">💬</a>
+
+      {/* ── LIGHTBOX (full image) ── */}
+      {lightbox && (
+        <div className="lightbox" onClick={()=>setLightbox(null)}>
+          <button className="lb-close" onClick={()=>setLightbox(null)}>✕</button>
+          <img src={lightbox.src} alt={lightbox.title} onClick={e=>e.stopPropagation()}/>
+          {lightbox.title && <div className="lb-title">{lightbox.title}</div>}
+        </div>
+      )}
+
+      {/* ── SECRET LOGIN ── */}
+      {showLogin && (
+        <div className="overlay" onClick={e=>e.target===e.currentTarget&&(setShowLogin(false),setPassInput(""),setPassErr(false))}>
+          <div className="login-modal">
+            <div className="login-icon">🔐</div>
+            <div className="login-title">Admin Access</div>
+            <div className="login-sub">Enter your password to manage portfolio</div>
+            <input className="login-input" type="password" placeholder="••••••" value={passInput}
+              onChange={e=>{setPassInput(e.target.value);setPassErr(false);}}
+              onKeyDown={e=>e.key==="Enter"&&handleLogin()} autoFocus/>
+            {passErr&&<div className="login-err">❌ Wrong password</div>}
+            <button className="login-btn" onClick={handleLogin}>Login</button><br/>
+            <button className="login-cancel" onClick={()=>{setShowLogin(false);setPassInput("");setPassErr(false);}}>Cancel</button>
+          </div>
+        </div>
+      )}
+
+      {/* ── PROJECT MODAL ── */}
+      {modal==="project" && (
+        <div className="overlay" onClick={e=>e.target===e.currentTarget&&setModal(null)}>
+          <div className="modal">
+            <div className="m-hdr">
+              <div className="m-title">{editId?"Edit Project":"Add New Project"}</div>
+              <button className="m-close" onClick={()=>setModal(null)}>✕</button>
+            </div>
+            <div className="m-body">
+              <div className="fld"><label>Project Title *</label><input value={pForm.title} onChange={e=>setPForm(f=>({...f,title:e.target.value}))} placeholder="e.g. Summer Campaign 2025"/></div>
+              <div className="fld"><label>Category</label>
+                <select value={pForm.cat} onChange={e=>setPForm(f=>({...f,cat:e.target.value}))}>
+                  {CATS.filter(c=>c!=="All").map(c=><option key={c} value={c}>{CAT_ICONS[c]} {c}</option>)}
+                </select>
+              </div>
+              <div className="fld"><label>Description (optional)</label><textarea value={pForm.desc} onChange={e=>setPForm(f=>({...f,desc:e.target.value}))} placeholder="Briefly describe this project..."/></div>
+              <div className="fld">
+                <label>Image — Upload from Gallery</label>
+                <div className="upload-zone">
+                  <input type="file" accept="image/*" onChange={handleFile}/>
+                  <div className="upload-icon">📁</div>
+                  <div className="upload-lbl">Tap to <strong>choose from your gallery</strong></div>
+                </div>
+                {imgSrc&&<img src={imgSrc} alt="preview" className="img-prev"/>}
+                <div className="divider">or paste image URL</div>
+                <input value={pForm.imgUrl} onChange={e=>setPForm(f=>({...f,imgUrl:e.target.value,imgData:""}))} placeholder="https://your-image.com/photo.jpg"/>
+              </div>
+              <div className="fld"><label>{pForm.cat==="Websites"?"🌐 Website URL":"🔗 Project Link (optional)"}</label>
+                <input value={pForm.link} onChange={e=>setPForm(f=>({...f,link:e.target.value}))} placeholder="https://..."/>
+              </div>
+            </div>
+            <div className="m-foot">
+              <button className="btn-cancel" onClick={()=>setModal(null)}>Cancel</button>
+              <button className="btn-save" onClick={saveProject}>{editId?"Save Changes":"Add to Portfolio"}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── TESTI MODAL ── */}
+      {modal==="testi" && (
+        <div className="overlay" onClick={e=>e.target===e.currentTarget&&setModal(null)}>
+          <div className="modal">
+            <div className="m-hdr">
+              <div className="m-title">{editId?"Edit Review":"Add Client Review"}</div>
+              <button className="m-close" onClick={()=>setModal(null)}>✕</button>
+            </div>
+            <div className="m-body">
+              <div className="fld"><label>Client Name *</label><input value={tForm.name} onChange={e=>setTForm(f=>({...f,name:e.target.value}))} placeholder="e.g. Ahmed Khan"/></div>
+              <div className="fld"><label>Role / Position</label><input value={tForm.role} onChange={e=>setTForm(f=>({...f,role:e.target.value}))} placeholder="e.g. CEO, Founder"/></div>
+              <div className="fld"><label>Company / Brand</label><input value={tForm.company} onChange={e=>setTForm(f=>({...f,company:e.target.value}))} placeholder="e.g. XYZ Clothing"/></div>
+              <div className="fld"><label>Their Review *</label><textarea value={tForm.text} onChange={e=>setTForm(f=>({...f,text:e.target.value}))} placeholder="What did they say about your work?"/></div>
+              <div className="fld"><label>Rating</label>
+                <select value={tForm.rating} onChange={e=>setTForm(f=>({...f,rating:Number(e.target.value)}))}>
+                  {[5,4,3,2,1].map(n=><option key={n} value={n}>{"★".repeat(n)} ({n}/5)</option>)}
+                </select>
+              </div>
+            </div>
+            <div className="m-foot">
+              <button className="btn-cancel" onClick={()=>setModal(null)}>Cancel</button>
+              <button className="btn-save" onClick={saveTesti}>{editId?"Save Changes":"Add Review"}</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
